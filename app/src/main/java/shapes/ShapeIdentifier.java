@@ -3,6 +3,8 @@ package shapes;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+import javax.lang.model.util.Elements.Origin;
+
 public class ShapeIdentifier {
 
     public String identify(ArrayList<Coordinate> coordinates) {
@@ -27,12 +29,16 @@ public class ShapeIdentifier {
 
         if (coordinates.size() == 4) {
             
-            if(isSquare(coordinates)) {
+            if (isSquare(coordinates)) {
                 return "Square";
             } 
 
-            if(isRectangle(coordinates)) {
+            if (isRectangle(coordinates)) {
                 return "Rectangle";
+            }
+
+            if (isParallelogram(coordinates)) {
+                return "Parallelogram";
             }
             
             return "2D Shape";
@@ -63,23 +69,45 @@ public class ShapeIdentifier {
             return false;
         }
 
-        float horisontal1 = coordinates.get(0).x() - coordinates.get(1).x();
-        float horisontal2 = coordinates.get(2).x() - coordinates.get(3).x();
-        
-        float vertical1 = coordinates.get(1).y() - coordinates.get(2).y();
-        float vertical2 = coordinates.get(3).y() - coordinates.get(0).y();
-        
-        if (sidesAreEqualLength(vertical1, vertical2) && !sidesAreEqualLength(horisontal1, vertical1)) {
+        Face horizontal1 = new Face (coordinates.get(0),coordinates.get(1));
+        Face horizontal2 = new Face (coordinates.get(2), coordinates.get(3));
+
+        Face vertical1 = new Face (coordinates.get(1), coordinates.get(2));
+        Face vertical2 = new Face (coordinates.get(3), coordinates.get(0));
+
+        boolean sidesAreNotEqual = false;
+        boolean anglesAre90 = false;
+
+        if (vertical1.getHeight() == vertical2.getHeight() && vertical1.getHeight() != horizontal1.getLength()) {
+            sidesAreNotEqual = true;
+        }
+
+        if (sidesAreNotEqual) {
             return true;
         }
-        //&& anglesAre90(side1
 
-        //if coordinate changes in both x and y it is a parallelogram
-
+        
         return false;
     }
 
-   
+    private boolean isParallelogram (ArrayList<Coordinate> coordinates) {
+
+       return true;
+    }
+
+    private boolean anglesAre90 () {
+        // System.out.println(cord1.x() + " " + cord2.x());
+        // System.out.println(cord1.y() + " " + cord2.y());
+
+        // if(cord1.x() != cord2.x() && cord1.y() != cord2.y()) {
+        //     return false;
+        // }
+
+        //if horizontal1 and horizontal2 have different origins/exits then it is a parallelogram
+        
+
+        return true;
+    }
 
 
     private boolean sidesAreEqualLength (float distance1, float distance2) {
