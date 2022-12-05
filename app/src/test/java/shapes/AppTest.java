@@ -81,7 +81,33 @@ public class AppTest {
         assertEquals("Parallelogram", si.identify(coordinates));
     }
 
-    //Having two of either X, Y or Z coordinates should return "2D"
+    //Having only two of X, Y or Z coordinates in an irregular or unsupported shape should return string "2D Shape"
+    @Test void canIdentify2dShapeInXY () {
+        coordinates.add(new Coordinate(0, 0, 0));
+        coordinates.add(new Coordinate(3, 0, 0));
+        coordinates.add(new Coordinate(3, 2, 0));
+        coordinates.add(new Coordinate(2, 3, 0));
+        coordinates.add(new Coordinate(0, 2, 0));
+        assertEquals("2D Shape", si.identify(coordinates));
+    }
+
+    @Test void canIdentify2dShapeInYZ () {
+        coordinates.add(new Coordinate(0, 0, 0));
+        coordinates.add(new Coordinate(0, 3, 0));
+        coordinates.add(new Coordinate(0, 3, 2));
+        coordinates.add(new Coordinate(0, 2, 3));
+        coordinates.add(new Coordinate(0, 0, 2));
+        assertEquals("2D Shape", si.identify(coordinates));
+    }
+
+    @Test void canIdentify2dShapeInXZ () {
+        coordinates.add(new Coordinate(0,0, 0));
+        coordinates.add(new Coordinate(3,0, 0));
+        coordinates.add(new Coordinate(3,0, 2));
+        coordinates.add(new Coordinate(2,0, 3));
+        coordinates.add(new Coordinate(0,0, 2));
+        assertEquals("2D Shape", si.identify(coordinates));
+    }
     
     //Having all three coordinates XYZ should return "3D"
 

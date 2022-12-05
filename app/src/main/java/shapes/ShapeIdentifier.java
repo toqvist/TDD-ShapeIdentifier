@@ -44,10 +44,34 @@ public class ShapeIdentifier {
             return "2D Shape";
         }
 
+        boolean hasCordsInX = false;
+        boolean hasCordsInY = false;
+        boolean hasCordsInZ = false;
+
+        for (Coordinate coordinate : coordinates) {
+            if(coordinate.x() != 0) {
+                hasCordsInX = true;
+            }
+            if(coordinate.y() != 0) {
+                hasCordsInY = true;
+            }
+            if(coordinate.z() != 0) {
+                hasCordsInZ = true;
+            }
+        }
+
+        boolean is2D = (hasCordsInX && hasCordsInY && !hasCordsInZ) || 
+            (hasCordsInX && !hasCordsInY && hasCordsInZ) || 
+            (!hasCordsInX && hasCordsInY && hasCordsInZ);
+
+        if (is2D) {
+            return "2D Shape";
+        }
+
         return "None";
     }
 
-    private boolean isSquare (ArrayList<Coordinate> coordinates) {
+    private boolean isSquare(ArrayList<Coordinate> coordinates) {
 
         if (coordinates.size() != 4) {
             return false;
@@ -55,25 +79,25 @@ public class ShapeIdentifier {
 
         float side1 = coordinates.get(0).x() - coordinates.get(1).x();
         float side2 = coordinates.get(1).y() - coordinates.get(2).y();
-        boolean hasEqualSides = side1 == side2 || (side1* -1) == side2;
-        
+        boolean hasEqualSides = side1 == side2 || (side1 * -1) == side2;
+
         if (hasEqualSides) {
             return true;
         }
         return false;
     }
 
-    private boolean isRectangle (ArrayList<Coordinate> coordinates) {
+    private boolean isRectangle(ArrayList<Coordinate> coordinates) {
 
         if (coordinates.size() != 4) {
             return false;
         }
 
-        Face horizontal1 = new Face (coordinates.get(0),coordinates.get(1));
-        Face horizontal2 = new Face (coordinates.get(2), coordinates.get(3));
+        Face horizontal1 = new Face(coordinates.get(0), coordinates.get(1));
+        Face horizontal2 = new Face(coordinates.get(2), coordinates.get(3));
 
-        Face vertical1 = new Face (coordinates.get(1), coordinates.get(2));
-        Face vertical2 = new Face (coordinates.get(3), coordinates.get(0));
+        Face vertical1 = new Face(coordinates.get(1), coordinates.get(2));
+        Face vertical2 = new Face(coordinates.get(3), coordinates.get(0));
 
         boolean sidesAreNotEqual = false;
         boolean anglesAre90 = false;
@@ -82,7 +106,7 @@ public class ShapeIdentifier {
             sidesAreNotEqual = true;
         }
 
-        if(horizontal1.getOrigin().x() == horizontal2.getEnd().x()) {
+        if (horizontal1.getOrigin().x() == horizontal2.getEnd().x()) {
             anglesAre90 = true;
         }
 
@@ -93,17 +117,17 @@ public class ShapeIdentifier {
         return false;
     }
 
-    private boolean isParallelogram (ArrayList<Coordinate> coordinates) {
+    private boolean isParallelogram(ArrayList<Coordinate> coordinates) {
 
         if (coordinates.size() != 4) {
             return false;
         }
 
-        Face horizontal1 = new Face (coordinates.get(0),coordinates.get(1));
-        Face horizontal2 = new Face (coordinates.get(2), coordinates.get(3));
+        Face horizontal1 = new Face(coordinates.get(0), coordinates.get(1));
+        Face horizontal2 = new Face(coordinates.get(2), coordinates.get(3));
 
-        Face vertical1 = new Face (coordinates.get(1), coordinates.get(2));
-        Face vertical2 = new Face (coordinates.get(3), coordinates.get(0));
+        Face vertical1 = new Face(coordinates.get(1), coordinates.get(2));
+        Face vertical2 = new Face(coordinates.get(3), coordinates.get(0));
 
         boolean isUniform = false;
         boolean anglesAre90 = false;
@@ -112,7 +136,7 @@ public class ShapeIdentifier {
             isUniform = true;
         }
 
-        if(horizontal1.getOrigin().x() == horizontal2.getEnd().x()) {
+        if (horizontal1.getOrigin().x() == horizontal2.getEnd().x()) {
             anglesAre90 = true;
         }
 
@@ -121,30 +145,6 @@ public class ShapeIdentifier {
         }
 
         return false;
-    }
-
-    private boolean anglesAre90 () {
-        // System.out.println(cord1.x() + " " + cord2.x());
-        // System.out.println(cord1.y() + " " + cord2.y());
-
-        // if(cord1.x() != cord2.x() && cord1.y() != cord2.y()) {
-        //     return false;
-        // }
-
-        //if horizontal1 and horizontal2 have different origins/exits then it is a parallelogram
-        
-
-        return true;
-    }
-
-
-    private boolean sidesAreEqualLength (float distance1, float distance2) {
-
-        if (distance1 == distance2 || (distance1* -1) == distance2) {
-            return true;
-        }
-        return false;
-        
     }
 
     private void removeDuplicatePoints(ArrayList<Coordinate> coordinates) {
