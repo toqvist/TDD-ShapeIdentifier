@@ -54,9 +54,23 @@ public class AppTest {
 
 
     //4 equidistanced coordinates with angles of 90° should return string "Square"
+    @Test void canIdentifySquare () {
+        coordinates.add(new Coordinate(0, 0, 0));
+        coordinates.add(new Coordinate(1, 0, 0));
+        coordinates.add(new Coordinate(1, 1, 0));
+        coordinates.add(new Coordinate(0, 1, 0));
+        assertEquals("Square", si.identify(coordinates));
+    }
 
     //4 coordinates with angles of 90° and two equal sides that are different
     // from the other two, of which are also equal, should return string "Rectangle"
+    @Test void canIdentifyRectangle () {
+        coordinates.add(new Coordinate(0, 0, 0));
+        coordinates.add(new Coordinate(2, 0, 0));
+        coordinates.add(new Coordinate(2, 1, 0));
+        coordinates.add(new Coordinate(0, 1, 0));
+        assertEquals("Rectangle", si.identify(coordinates));
+    }
 
     //4 coordinates with angles of <90 or >90 should reuturn string "Parallelogram"
 

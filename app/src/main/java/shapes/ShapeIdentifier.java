@@ -27,28 +27,53 @@ public class ShapeIdentifier {
 
         if (coordinates.size() == 4) {
             
-            if(isSquare()) {
+            if(isSquare(coordinates)) {
                 return "Square";
             } 
 
-            if(isRectangle()) {
+            if(isRectangle(coordinates)) {
                 return "Rectangle";
             }
+            
             return "2D Shape";
         }
 
         return "None";
     }
 
-    private boolean isSquare () {
+    private boolean isSquare (ArrayList<Coordinate> coordinates) {
+
+        if (coordinates.size() != 4) {
+            return false;
+        }
+
+        float side1 = coordinates.get(0).x() - coordinates.get(1).x();
+        float side2 = coordinates.get(1).y() - coordinates.get(2).y();
+        boolean hasEqualSides = side1 == side2 || (side1* -1) == side2;
         
-        
-        return true;
+        if (hasEqualSides) {
+            return true;
+        }
+        return false;
     }
 
-    private boolean isRectangle () {
-        return true;
+    private boolean isRectangle (ArrayList<Coordinate> coordinates) {
+
+        if (coordinates.size() != 4) {
+            return false;
+        }
+
+        float side1 = coordinates.get(0).x() - coordinates.get(1).x();
+        float side2 = coordinates.get(1).y() - coordinates.get(2).y();
+        boolean hasEqualSides = side1 == side2 || (side1* -1) == side2;
+        
+        if (!hasEqualSides) {
+            return true;
+        }
+        return false;
     }
+
+
 
     private void removeDuplicatePoints(ArrayList<Coordinate> coordinates) {
         for (int i = 0; i < coordinates.size(); i++) {
