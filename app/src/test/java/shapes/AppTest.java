@@ -30,7 +30,7 @@ public class AppTest {
     }
 
     //2 coordinates should return string "Line"
-    @Test void canIdentifyLinePoints () {
+    @Test void canIdentifyLine () {
 
         coordinates.add(new Coordinate(0, 0, 0));
         coordinates.add(new Coordinate(1, 0, 0));
@@ -44,7 +44,7 @@ public class AppTest {
     }
 
     //3 coordinates should return string "Triangle"
-    @Test void canIdentifyTriangleInXY () {
+    @Test void canIdentifyTriangle () {
 
         coordinates.add(new Coordinate(0, 0, 0));
         coordinates.add(new Coordinate(1, 0, 0));
@@ -52,13 +52,6 @@ public class AppTest {
         assertEquals("Triangle", si.identify(coordinates));
     }
 
-    @Test void canIdentifyTriangleInZY () {
-
-        coordinates.add(new Coordinate(0, 0, 0));
-        coordinates.add(new Coordinate(0, 1, 1));
-        coordinates.add(new Coordinate(0, 2, 2));
-        assertEquals("Triangle", si.identify(coordinates));
-    }
 
     //4 equidistanced coordinates with angles of 90° should return string "Square"
 

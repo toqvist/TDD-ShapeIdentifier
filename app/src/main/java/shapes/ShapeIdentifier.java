@@ -21,7 +21,33 @@ public class ShapeIdentifier {
             return "Line";
         }
 
+        if (coordinates.size() == 3) {
+            return "Triangle";
+        }
+
+        if (coordinates.size() == 4) {
+            
+            if(isSquare()) {
+                return "Square";
+            } 
+
+            if(isRectangle()) {
+                return "Rectangle";
+            }
+            return "2D Shape";
+        }
+
         return "None";
+    }
+
+    private boolean isSquare () {
+        
+        
+        return true;
+    }
+
+    private boolean isRectangle () {
+        return true;
     }
 
     private void removeDuplicatePoints(ArrayList<Coordinate> coordinates) {
