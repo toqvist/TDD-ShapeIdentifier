@@ -21,4 +21,19 @@ public class AppTest {
 
     //4 coordinates with angles of <90 or >90 should reuturn string "Parallelogram"
 
+    //Having two of either X, Y or Z coordinates should return "2D"
+    
+    //Having all three coordinates XYZ should return "3D"
+
+    //A 2D square + a single point in 3rd space should return string "Pyramid"
+    
+    //8 coordinates with 6 equal faces, with 3 sides meeting at each vertex should return string "Cube"
+    
+    //4 coordinates in 3D space should return string "Rectangular Prism"
+
+    //A 3D shape that is unrecognized by the program reuturns string "3D Shape"
+
+    
+
+
 }
