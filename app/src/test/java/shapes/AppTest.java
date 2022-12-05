@@ -30,14 +30,29 @@ public class AppTest {
     }
 
     //2 coordinates should return string "Line"
-    @Test void canIdentifyLine () {
+    @Test void canIdentifyLinePoints () {
 
         coordinates.add(new Coordinate(0, 0, 0));
         coordinates.add(new Coordinate(1, 0, 0));
         assertEquals("Line", si.identify(coordinates));
     }
 
+    @Test void lineMustHaveTwoDifferentPoints () {
+        coordinates.add(new Coordinate(0, 0, 0));
+        coordinates.add(new Coordinate(0, 0, 0));
+        assertEquals("Dot", si.identify(coordinates));
+
+        coordinates.get(0).setX(1);
+        assertEquals("Line", si.identify(coordinates));
+    }
+
     //3 coordinates should return string "Triangle"
+    // @Test void canIdentifyTriangle () {
+
+    //     coordinates.add(new Coordinate(0, 0, 0));
+    //     coordinates.add(new Coordinate(1, 0, 0));
+    //     assertEquals("Triangle", si.identify(coordinates));
+    // }
 
     //4 equidistanced coordinates with angles of 90° should return string "Square"
 
