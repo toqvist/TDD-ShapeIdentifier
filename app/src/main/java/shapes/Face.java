@@ -2,8 +2,8 @@ package shapes;
 
 public class Face {
     
-    Coordinate origin;
-    Coordinate end;
+    private Coordinate origin;
+    private Coordinate end;
 
     public Face (Coordinate origin, Coordinate end) {
         this.origin  = origin;
@@ -32,5 +32,13 @@ public class Face {
             depth *= -1;
         }
         return depth;
+    }
+
+    public Coordinate getOrigin() {
+        return this.origin;
+    }
+
+    public Coordinate getEnd() {
+        return this.end;
     }
 }

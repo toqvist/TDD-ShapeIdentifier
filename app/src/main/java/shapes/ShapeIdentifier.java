@@ -82,17 +82,45 @@ public class ShapeIdentifier {
             sidesAreNotEqual = true;
         }
 
-        if (sidesAreNotEqual) {
+        if(horizontal1.getOrigin().x() == horizontal2.getEnd().x()) {
+            anglesAre90 = true;
+        }
+
+        if (sidesAreNotEqual && anglesAre90) {
             return true;
         }
 
-        
         return false;
     }
 
     private boolean isParallelogram (ArrayList<Coordinate> coordinates) {
 
-       return true;
+        if (coordinates.size() != 4) {
+            return false;
+        }
+
+        Face horizontal1 = new Face (coordinates.get(0),coordinates.get(1));
+        Face horizontal2 = new Face (coordinates.get(2), coordinates.get(3));
+
+        Face vertical1 = new Face (coordinates.get(1), coordinates.get(2));
+        Face vertical2 = new Face (coordinates.get(3), coordinates.get(0));
+
+        boolean isUniform = false;
+        boolean anglesAre90 = false;
+
+        if (vertical1.getHeight() == vertical2.getHeight() && horizontal1.getLength() == horizontal1.getLength()) {
+            isUniform = true;
+        }
+
+        if(horizontal1.getOrigin().x() == horizontal2.getEnd().x()) {
+            anglesAre90 = true;
+        }
+
+        if (isUniform && !anglesAre90) {
+            return true;
+        }
+
+        return false;
     }
 
     private boolean anglesAre90 () {
