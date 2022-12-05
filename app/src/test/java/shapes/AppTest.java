@@ -175,12 +175,5 @@ public class AppTest {
 
         assertEquals("Rectangular Prism", si.identify(coordinates));
     }
-    // A 3D shape that is unrecognized by the program reuturns string "3D Shape"
-
-    // Interface should only accept an X, Y or Z coordinate
-    // @Test void identifierAcceptsOnlyXYZ () {
-    // assertEquals("Only X, Y and Z coordinates supported.",
-    // si.identify(coordinates));
-    // }
 
 }
