@@ -28,10 +28,10 @@ public class ShapeIdentifier {
         }
 
         if (coordinates.size() == 4) {
-            
+
             if (isSquare(coordinates)) {
                 return "Square";
-            } 
+            }
 
             if (isRectangle(coordinates)) {
                 return "Rectangle";
@@ -40,7 +40,7 @@ public class ShapeIdentifier {
             if (isParallelogram(coordinates)) {
                 return "Parallelogram";
             }
-            
+
             return "2D Shape";
         }
 
@@ -49,26 +49,31 @@ public class ShapeIdentifier {
         boolean hasCordsInZ = false;
 
         for (Coordinate coordinate : coordinates) {
-            if(coordinate.x() != 0) {
+
+            if (coordinate.x() != 0) {
                 hasCordsInX = true;
             }
-            if(coordinate.y() != 0) {
+            if (coordinate.y() != 0) {
                 hasCordsInY = true;
             }
-            if(coordinate.z() != 0) {
+            if (coordinate.z() != 0) {
                 hasCordsInZ = true;
             }
         }
 
-        boolean is2D = (hasCordsInX && hasCordsInY && !hasCordsInZ) || 
-            (hasCordsInX && !hasCordsInY && hasCordsInZ) || 
-            (!hasCordsInX && hasCordsInY && hasCordsInZ);
+        boolean is2D = (hasCordsInX && hasCordsInY && !hasCordsInZ) ||
+                (hasCordsInX && !hasCordsInY && hasCordsInZ) ||
+                (!hasCordsInX && hasCordsInY && hasCordsInZ);
 
         if (is2D) {
             return "2D Shape";
         }
 
-        return "None";
+        if (isPyramid(coordinates)) {
+            return "Pyramid";
+        }
+
+        return "3D Shape";
     }
 
     private boolean isSquare(ArrayList<Coordinate> coordinates) {
@@ -145,6 +150,69 @@ public class ShapeIdentifier {
         }
 
         return false;
+    }
+
+    private boolean isPyramid(ArrayList<Coordinate> coordinates) {
+
+        if (coordinates.size() != 5) {
+            return false;
+        }
+
+        // Pyramid cannot have more than one point
+        int cordsInX = 0;
+        int cordsInY = 0;
+        int cordsInZ = 0;
+
+        for (Coordinate coordinate : coordinates) {
+            if (coordinate.x() != 0) {
+                cordsInX++;
+            }
+            if (coordinate.y() != 0) {
+                cordsInY++;
+            }
+            if (coordinate.z() != 0) {
+                cordsInZ++;
+            }
+        }
+
+        boolean pointIsInX = false;
+        boolean pointIsInY = false;
+        boolean pointIsInZ = false;
+
+        if (cordsInX < cordsInY && cordsInX < cordsInZ) {
+            pointIsInX = true;
+        }
+        if (cordsInY < cordsInX && cordsInY < cordsInZ) {
+            pointIsInY = true;
+        }
+        if (cordsInZ < cordsInY && cordsInZ < cordsInX) {
+            pointIsInZ = true;
+        }
+        
+        //Check for misshaped pyramid
+        if (!pointIsInX && !pointIsInY && !pointIsInZ ) {
+            return false;
+        }
+
+        Coordinate tipOfPyramid = null;
+        //Find the coordinate that is the top of the pyramid
+        if (pointIsInZ) {
+            for (Coordinate coordinate : coordinates) {
+                if (coordinate.z() != 0) {
+                    tipOfPyramid = coordinate;
+                }
+            }
+        }
+
+
+        coordinates.remove(tipOfPyramid);
+
+        //Check if remaining coordinates form a square or rectangle
+        if(isSquare(coordinates) || isRectangle(coordinates)) {
+            return true;
+        }
+        return false;
+
     }
 
     private void removeDuplicatePoints(ArrayList<Coordinate> coordinates) {

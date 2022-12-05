@@ -110,9 +110,26 @@ public class AppTest {
     }
     
     //Having all three coordinates XYZ should return "3D"
+    @Test void canIdentify3dShape() {
+        coordinates.add(new Coordinate(0,0, 0));
+        coordinates.add(new Coordinate(3,1, 1));
+        coordinates.add(new Coordinate(3,0, 2));
+        coordinates.add(new Coordinate(3,0, 2));
+        coordinates.add(new Coordinate(3,0, 3));
+        coordinates.add(new Coordinate(3,0, 4));
+        assertEquals("3D Shape", si.identify(coordinates));
+    }
 
     //A 2D square + a single point in 3rd space should return string "Pyramid"
-    
+    @Test void canIdentifyPyramid () {
+        coordinates.add(new Coordinate(0, 0, 0));
+        coordinates.add(new Coordinate(3, 0, 0));
+        coordinates.add(new Coordinate(3, 3, 0));
+        coordinates.add(new Coordinate(0, 3, 0));
+        coordinates.add(new Coordinate(2, 2, 3));
+        assertEquals("Pyramid", si.identify(coordinates));
+    }
+
     //8 coordinates with 6 equal faces, with 3 sides meeting at each vertex should return string "Cube"
     
     //4 coordinates in 3D space should return string "Rectangular Prism"
