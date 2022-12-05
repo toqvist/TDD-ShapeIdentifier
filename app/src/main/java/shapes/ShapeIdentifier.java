@@ -158,7 +158,7 @@ public class ShapeIdentifier {
             return false;
         }
 
-        // Pyramid cannot have more than one point
+        // Pyramid cannot have more than one top
         int cordsInX = 0;
         int cordsInY = 0;
         int cordsInZ = 0;
@@ -179,6 +179,7 @@ public class ShapeIdentifier {
         boolean pointIsInY = false;
         boolean pointIsInZ = false;
 
+        //Check in which direction top is
         if (cordsInX < cordsInY && cordsInX < cordsInZ) {
             pointIsInX = true;
         }
@@ -194,18 +195,18 @@ public class ShapeIdentifier {
             return false;
         }
 
-        Coordinate tipOfPyramid = null;
+        Coordinate topOfPyramid = null;
         //Find the coordinate that is the top of the pyramid
         if (pointIsInZ) {
             for (Coordinate coordinate : coordinates) {
                 if (coordinate.z() != 0) {
-                    tipOfPyramid = coordinate;
+                    topOfPyramid = coordinate;
                 }
             }
         }
 
 
-        coordinates.remove(tipOfPyramid);
+        coordinates.remove(topOfPyramid);
 
         //Check if remaining coordinates form a square or rectangle
         if(isSquare(coordinates) || isRectangle(coordinates)) {
