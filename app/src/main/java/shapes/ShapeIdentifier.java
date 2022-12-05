@@ -73,6 +73,16 @@ public class ShapeIdentifier {
             return "Pyramid";
         }
 
+        if(coordinates.size() == 8) {
+            if (isCube(coordinates)) {
+                return "Cube";
+            } 
+
+            if (isRectangularPrism(coordinates)) {
+                return "Rectangular Prism";
+            }
+        }
+
         return "3D Shape";
     }
 
@@ -214,6 +224,46 @@ public class ShapeIdentifier {
         }
         return false;
 
+    }
+
+    private boolean isCube (ArrayList<Coordinate> coordinates) {
+        //Identify first shape and it's opposite. Check if both are squares.
+
+        ArrayList<Coordinate> face1 = new ArrayList<Coordinate>();
+        ArrayList<Coordinate> face2= new ArrayList<Coordinate>();
+
+        for (int i = 0; i < 4; i++) {
+            face1.add(coordinates.get(i));
+        }
+
+        for (int i = 4; i < 8; i++) {
+            face2.add(coordinates.get(i));
+        }
+
+        if (isSquare(face1) && isSquare(face2)) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isRectangularPrism (ArrayList<Coordinate> coordinates) {
+        //Identify first shape and it's opposite. Check if both are rectangles
+
+        ArrayList<Coordinate> face1 = new ArrayList<Coordinate>();
+        ArrayList<Coordinate> face2= new ArrayList<Coordinate>();
+
+        for (int i = 0; i < 4; i++) {
+            face1.add(coordinates.get(i));
+        }
+
+        for (int i = 4; i < 8; i++) {
+            face2.add(coordinates.get(i));
+        }
+
+        if (isRectangle(face1) && isRectangle(face2)) {
+            return true;
+        }
+        return false;
     }
 
     private void removeDuplicatePoints(ArrayList<Coordinate> coordinates) {
