@@ -41,18 +41,24 @@ public class AppTest {
         coordinates.add(new Coordinate(0, 0, 0));
         coordinates.add(new Coordinate(0, 0, 0));
         assertEquals("Dot", si.identify(coordinates));
-
-        coordinates.get(0).setX(1);
-        assertEquals("Line", si.identify(coordinates));
     }
 
     //3 coordinates should return string "Triangle"
-    // @Test void canIdentifyTriangle () {
+    @Test void canIdentifyTriangleInXY () {
 
-    //     coordinates.add(new Coordinate(0, 0, 0));
-    //     coordinates.add(new Coordinate(1, 0, 0));
-    //     assertEquals("Triangle", si.identify(coordinates));
-    // }
+        coordinates.add(new Coordinate(0, 0, 0));
+        coordinates.add(new Coordinate(1, 0, 0));
+        coordinates.add(new Coordinate(2, 2, 0));
+        assertEquals("Triangle", si.identify(coordinates));
+    }
+
+    @Test void canIdentifyTriangleInZY () {
+
+        coordinates.add(new Coordinate(0, 0, 0));
+        coordinates.add(new Coordinate(0, 1, 1));
+        coordinates.add(new Coordinate(0, 2, 2));
+        assertEquals("Triangle", si.identify(coordinates));
+    }
 
     //4 equidistanced coordinates with angles of 90° should return string "Square"
 

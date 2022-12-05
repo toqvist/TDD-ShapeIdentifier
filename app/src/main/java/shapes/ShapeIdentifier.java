@@ -1,10 +1,14 @@
 package shapes;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class ShapeIdentifier {
 
     public String identify(ArrayList<Coordinate> coordinates) {
+
+        removeDuplicatePoints(coordinates);
+
         if (coordinates.isEmpty()) {
             return "None";
         }
@@ -14,23 +18,41 @@ public class ShapeIdentifier {
         }
 
         if (coordinates.size() == 2) {
-
-            Coordinate firstCoordinate = coordinates.get(0);
-            Coordinate secondCoordinate = coordinates.get(1);
-            
-            boolean areNotTheSame = 
-                    firstCoordinate.x() != secondCoordinate.x() ||
-                    firstCoordinate.y() != secondCoordinate.y() ||
-                    firstCoordinate.z() != secondCoordinate.z();
-
-            if (areNotTheSame) {
-                return "Line";
-            } else {
-                return "Dot";
-            }
+            return "Line";
         }
 
         return "None";
+    }
+
+    private void removeDuplicatePoints(ArrayList<Coordinate> coordinates) {
+        for (int i = 0; i < coordinates.size(); i++) {
+            for (int j = 0; j < coordinates.size(); j++) {
+
+                Coordinate cord1 = coordinates.get(i);
+                Coordinate cord2 = coordinates.get(j);
+
+                if (areTheSame(cord1, cord2) && i != j) {
+                    coordinates.remove(cord2);
+                }
+
+            }
+        }
+    }
+
+    private boolean areNotTheSame(Coordinate first, Coordinate second) {
+        boolean areNotTheSame = first.x() != second.x() ||
+                first.y() != second.y() ||
+                first.z() != second.z();
+
+        return areNotTheSame;
+    }
+
+    private boolean areTheSame(Coordinate first, Coordinate second) {
+        boolean areNotTheSame = first.x() == second.x() &&
+                first.y() == second.y() &&
+                first.z() == second.z();
+
+        return areNotTheSame;
     }
 
 }
