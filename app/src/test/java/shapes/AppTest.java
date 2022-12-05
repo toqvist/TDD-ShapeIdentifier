@@ -71,8 +71,15 @@ public class AppTest {
         coordinates.add(new Coordinate(0, 1, 0));
         assertEquals("Rectangle", si.identify(coordinates));
     }
-
+    
     //4 coordinates with angles of <90 or >90 should reuturn string "Parallelogram"
+    @Test void canIdentifyParallelogram () {
+        coordinates.add(new Coordinate(0, 0, 0));
+        coordinates.add(new Coordinate(2, 0, 0));
+        coordinates.add(new Coordinate(3, 1, 0));
+        coordinates.add(new Coordinate(1, 1, 0));
+        assertEquals("Parallelogram", si.identify(coordinates));
+    }
 
     //Having two of either X, Y or Z coordinates should return "2D"
     

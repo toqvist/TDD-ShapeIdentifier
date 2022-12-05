@@ -63,17 +63,33 @@ public class ShapeIdentifier {
             return false;
         }
 
-        float side1 = coordinates.get(0).x() - coordinates.get(1).x();
-        float side2 = coordinates.get(1).y() - coordinates.get(2).y();
-        boolean hasEqualSides = side1 == side2 || (side1* -1) == side2;
+        float horisontal1 = coordinates.get(0).x() - coordinates.get(1).x();
+        float horisontal2 = coordinates.get(2).x() - coordinates.get(3).x();
         
-        if (!hasEqualSides) {
+        float vertical1 = coordinates.get(1).y() - coordinates.get(2).y();
+        float vertical2 = coordinates.get(3).y() - coordinates.get(0).y();
+        
+        if (sidesAreEqualLength(vertical1, vertical2) && !sidesAreEqualLength(horisontal1, vertical1)) {
             return true;
         }
+        //&& anglesAre90(side1
+
+        //if coordinate changes in both x and y it is a parallelogram
+
         return false;
     }
 
+   
 
+
+    private boolean sidesAreEqualLength (float distance1, float distance2) {
+
+        if (distance1 == distance2 || (distance1* -1) == distance2) {
+            return true;
+        }
+        return false;
+        
+    }
 
     private void removeDuplicatePoints(ArrayList<Coordinate> coordinates) {
         for (int i = 0; i < coordinates.size(); i++) {
