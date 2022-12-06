@@ -3,8 +3,6 @@ package shapes;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import javax.print.event.PrintEvent;
-
 public class App {
     public static void main(String[] args) {
         
